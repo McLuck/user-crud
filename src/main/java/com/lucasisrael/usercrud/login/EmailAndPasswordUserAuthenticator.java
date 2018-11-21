@@ -62,6 +62,9 @@ public class EmailAndPasswordUserAuthenticator implements UserAuthenticator {
      */
     @Override
     public String encodeKey ( final String decodedKey ) {
+        if ( decodedKey == null ) {
+            return null;
+        }
         return new String( Sha512DigestUtils.sha( decodedKey ) );
     }
 }
