@@ -1,0 +1,31 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+#targets
+target/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+bin/
+
+.metadata/
+.metadata/*
+
+.idea/
+
+# PMD
+.pmd
+
+# Checkstyle
+.ast
