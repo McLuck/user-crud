@@ -57,11 +57,31 @@ public class AuthenticationMethodService extends LoggedUserService {
      * @param authenticationMethod
      */
     public AuthenticationMethod addAuthenticationMethod ( final AuthenticationMethod authenticationMethod ) {
+        AuthenticationMethod validateMethod = validateMethod( authenticationMethod );
+        if ( validateMethod == null ) {
+            return null;
+        }
+        final boolean newEntity = authenticationMethod.getId() == null;
+        validateMethod = authenticationMethodRepository.save( validateMethod );
+        if ( ! newEntity ) {
+            loggedUser().getAuthentications()
+                    .removeIf( a -> a.getAuthenticationId().equals( authenticationMethod.getAuthenticationId() ) 
+                            && a.getType().getCode().equals( authenticationMethod.getType().getCode() ) );
+        }
+        loggedUser().getAuthentications().add( validateMethod );
+        return validateMethod;
+    }
+
+    /**
+     * @param authenticationMethod
+     */
+    private AuthenticationMethod validateMethod ( final AuthenticationMethod authenticationMethod ) {
         final User loggedUser = loggedUser();
         if ( loggedUser == null ) {
             logger.error( "Tentativa de criar novo método de autenticação, mas não existe um usuário na sessao" );
             return null;
         }
+        authenticationMethod.setUser( loggedUser );
         if ( authenticationMethod.getType() != null && Strings.isNullOrEmpty( authenticationMethod.getType().getCode() ) ) {
             logger.error( "Tentativa de criar novo método de autenticação sem definir o tipo da autenticação" );
             return null;
@@ -76,10 +96,10 @@ public class AuthenticationMethodService extends LoggedUserService {
             logger.error( "Tentativa de criar novo método de autenticação falhou. Não existe uma implementação para o tipo de autenticação solicitada!" );
             return null;
         }
+        if ( authenticationMethod.getType().getId() == null ) {
+            authenticationTypeRepository.findByCode( authenticationMethod.getType().getCode() ).ifPresent( authenticationMethod::setType );
+        }
         authenticationMethod.setAuthenticationKey( userAuthenticator.get().encodeKey( authenticationMethod.getAuthenticationKey() ) );
-        authenticationMethod.setUser( loggedUser );
-        authenticationTypeRepository.findByCode( authenticationMethod.getType().getCode() ).ifPresent( authenticationMethod::setType );
-        return authenticationMethodRepository.save( authenticationMethod );
+        return authenticationMethod;
     }
-
 }

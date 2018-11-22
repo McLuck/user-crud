@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,6 +43,13 @@ public class AuthenticationMethodController {
 
     @PostMapping
     public @ResponseBody ResponseEntity < AuthenticationMethod > createAuthenticationMethod ( final AuthenticationMethod authenticationMethod ) {
+        final AuthenticationMethod savedMethod = authenticationMethodService.addAuthenticationMethod( authenticationMethod );
+        final HttpStatus httpStatus = savedMethod != null ? HttpStatus.OK : HttpStatus.UNPROCESSABLE_ENTITY;
+        return new ResponseEntity <>( savedMethod , httpStatus );
+    }
+    
+    @PutMapping
+    public @ResponseBody ResponseEntity < AuthenticationMethod > changeAuthenticationMethod ( final AuthenticationMethod authenticationMethod ) {
         final AuthenticationMethod savedMethod = authenticationMethodService.addAuthenticationMethod( authenticationMethod );
         final HttpStatus httpStatus = savedMethod != null ? HttpStatus.OK : HttpStatus.UNPROCESSABLE_ENTITY;
         return new ResponseEntity <>( savedMethod , httpStatus );
