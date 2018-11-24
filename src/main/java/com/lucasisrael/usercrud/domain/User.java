@@ -22,7 +22,7 @@ import com.lucasisrael.usercrud.domain.annotation.TrackingUserActivity;
  * LISTA DE CLASSES INTERNAS: <br>
  */
 @TrackingUserActivity
-@Entity
+@Entity ( name = "registereduser" )
 public class User extends DomainEntity {
     private String name;
     private LocalDateTime lastUpdateDate;

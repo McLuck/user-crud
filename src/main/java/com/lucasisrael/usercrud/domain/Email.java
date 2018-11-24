@@ -3,6 +3,7 @@ package com.lucasisrael.usercrud.domain;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +21,7 @@ import com.lucasisrael.usercrud.domain.annotation.TrackingUserActivity;
  * <br>
  * LISTA DE CLASSES INTERNAS: <br>
  */
+@Entity
 @TrackingUserActivity
 public class Email extends DomainEntity {
     private LocalDateTime activationDate;

@@ -4,9 +4,12 @@ package com.lucasisrael.usercrud.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * DOCUMENTAÇÃO DA CLASSE <br>
@@ -19,8 +22,9 @@ import javax.persistence.ManyToOne;
  * <br>
  * LISTA DE CLASSES INTERNAS: <br>
  */
-
+@Entity
 public class UserActivity extends DomainEntity {
+    @OneToMany ( cascade=CascadeType.ALL )
     private List < ChangedData > changes;
     private String originDetails;
     @ManyToOne ( optional = false )

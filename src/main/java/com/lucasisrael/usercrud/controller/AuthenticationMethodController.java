@@ -26,13 +26,13 @@ import com.lucasisrael.usercrud.service.AuthenticationMethodService;
  * <br>
  * LISTA DE CLASSES INTERNAS: <br>
  */
-@RestController ( "/api/v1/authentication-method" )
+@RestController
 @Transactional
 public class AuthenticationMethodController {
     @Autowired
     AuthenticationMethodService authenticationMethodService;
 
-    @GetMapping
+    @GetMapping ( "/authentication-method" )
     public @ResponseBody ResponseEntity < List < AuthenticationMethod > > listMyAuthentitionMethods () {
         final List < AuthenticationMethod > methodForLoggedUser = authenticationMethodService.getRegisteredAuthenticationMethodForLoggedUser();
         if ( methodForLoggedUser == null ) {
@@ -41,14 +41,14 @@ public class AuthenticationMethodController {
         return new ResponseEntity <>( methodForLoggedUser , HttpStatus.OK );
     }
 
-    @PostMapping
+    @PostMapping ( "/authentication-method" )
     public @ResponseBody ResponseEntity < AuthenticationMethod > createAuthenticationMethod ( final AuthenticationMethod authenticationMethod ) {
         final AuthenticationMethod savedMethod = authenticationMethodService.addAuthenticationMethod( authenticationMethod );
         final HttpStatus httpStatus = savedMethod != null ? HttpStatus.OK : HttpStatus.UNPROCESSABLE_ENTITY;
         return new ResponseEntity <>( savedMethod , httpStatus );
     }
-    
-    @PutMapping
+
+    @PutMapping ( "/authentication-method" )
     public @ResponseBody ResponseEntity < AuthenticationMethod > changeAuthenticationMethod ( final AuthenticationMethod authenticationMethod ) {
         final AuthenticationMethod savedMethod = authenticationMethodService.addAuthenticationMethod( authenticationMethod );
         final HttpStatus httpStatus = savedMethod != null ? HttpStatus.OK : HttpStatus.UNPROCESSABLE_ENTITY;

@@ -1,6 +1,8 @@
 
 package com.lucasisrael.usercrud.domain;
 
+import javax.persistence.Entity;
+
 /** 
  * DOCUMENTAÇÃO DA CLASSE <br>
  * ---------------------- <br>
@@ -13,7 +15,7 @@ package com.lucasisrael.usercrud.domain;
  *<br>
  * LISTA DE CLASSES INTERNAS: <br>
  */
-
+@Entity
 public class AuthenticationType extends DomainEntity {
     public static final String EMAIL_AND_PASSWORD = "EMAIL_PWD";
     private String code;

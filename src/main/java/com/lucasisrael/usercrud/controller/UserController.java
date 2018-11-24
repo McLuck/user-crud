@@ -32,7 +32,7 @@ import com.lucasisrael.usercrud.service.UserService;
  * <br>
  * LISTA DE CLASSES INTERNAS: <br>
  */
-@RestController ( "/api/v1/user" )
+@RestController
 @Transactional
 public class UserController {
     Logger logger = LoggerFactory.getLogger( getClass() );
@@ -40,12 +40,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping
+    @GetMapping ( "/user" )
     public @ResponseBody ResponseEntity < List < User > > listUsers () {
         return new ResponseEntity <>( userService.listRegisteredUsers() , HttpStatus.OK );
     }
 
-    @GetMapping ( "/{id}" )
+    @GetMapping ( "/user/{id}" )
     public @ResponseBody ResponseEntity < User > loaduser ( @RequestParam ( value = "id" , required = true ) final Long idUser ) {
         final Optional < User > loadedUser = userService.loadUserById( idUser );
         if ( loadedUser.isPresent() ) {
@@ -54,7 +54,7 @@ public class UserController {
         return new ResponseEntity <>( HttpStatus.NO_CONTENT );
     }
 
-    @PostMapping
+    @PostMapping ( "/user" ) 
     public @ResponseBody ResponseEntity < User > createUser ( final User user ) {
         if ( user.getId() != null ) {
             logger.error( "Tentativa de salvar um usuário com o ID já preenchido! HTTP 226 - IM_USED" );
@@ -63,7 +63,7 @@ public class UserController {
         return new ResponseEntity <>( HttpStatus.NO_CONTENT );
     }
 
-    @PutMapping
+    @PutMapping ( "/user" )
     public @ResponseBody ResponseEntity < User > changeUser ( final User user ) {
         if ( user.getId() == null ) {
             logger.error( "Tentativa de atualizar um usuário sem o ID preenchido! HTTP 417 - EXPECTATION_FAILED" );

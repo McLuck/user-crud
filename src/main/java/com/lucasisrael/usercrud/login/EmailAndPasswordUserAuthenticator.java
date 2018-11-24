@@ -44,7 +44,7 @@ public class EmailAndPasswordUserAuthenticator implements UserAuthenticator {
         if ( Strings.isNullOrEmpty( login.getUserKey() ) ) {
             login.fail( "Senha não informada" );
         }
-        final AuthenticationMethod registeredMethod = authenticationMethodRepository.findByAuthenticationIdAndTypeCode( login.getUserId() , authenticationType() );
+        final AuthenticationMethod registeredMethod = authenticationMethodRepository.findByTypeCodeAndAuthenticationId( authenticationType(), login.getUserId()  );
         if ( registeredMethod != null ) {
             final String password = encodeKey( login.getUserKey() );
             if ( registeredMethod.getAuthenticationKey().equals( password ) ) {

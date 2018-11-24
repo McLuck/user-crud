@@ -34,10 +34,10 @@ public interface AuthenticationMethodRepository extends JpaRepository < Authenti
      * Busca o método de autenticação cadastrado para o
      * authenticationId informado e com o mesmo tipo de mecanismo de autenticação
      * 
-     * @param authenticationId
      * @param authenticationType
+     * @param authenticationId
      * @return
      */
-    AuthenticationMethod findByAuthenticationIdAndTypeCode ( String authenticationId , String authenticationType );
+    AuthenticationMethod findByTypeCodeAndAuthenticationId ( String authenticationType, String authenticationId );
 
 }

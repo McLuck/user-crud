@@ -1,6 +1,8 @@
 
 package com.lucasisrael.usercrud.domain;
 
+import javax.persistence.Entity;
+
 /**
  * DOCUMENTAÇÃO DA CLASSE <br>
  * ---------------------- <br>
@@ -12,7 +14,7 @@ package com.lucasisrael.usercrud.domain;
  * <br>
  * LISTA DE CLASSES INTERNAS: <br>
  */
-
+@Entity
 public class ChangedData extends DomainEntity {
     private UserActivity userActivity;
     private String oldValue;

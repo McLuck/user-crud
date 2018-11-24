@@ -22,13 +22,13 @@ import com.lucasisrael.usercrud.service.LoginService;
  * <br>
  * LISTA DE CLASSES INTERNAS: <br>
  */
-@RestController ( "/api/v1/login" )
+@RestController
 public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @PostMapping
-    public @ResponseBody ResponseEntity < LoginDTO > createUser ( final LoginDTO login ) {
+    @PostMapping ( "/login" )
+    public @ResponseBody ResponseEntity < LoginDTO > authenticate ( final LoginDTO login ) {
         loginService.authenticate( login );
         final HttpStatus httpStatus = login.getAuthenticated() ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
         return new ResponseEntity <>( login , httpStatus );

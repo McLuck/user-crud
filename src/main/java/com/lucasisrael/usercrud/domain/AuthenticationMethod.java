@@ -1,5 +1,6 @@
 package com.lucasisrael.usercrud.domain;
 
+import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,8 +26,11 @@ import com.lucasisrael.usercrud.domain.annotation.TrackingUserActivity;
  * <br>
  * LISTA DE CLASSES INTERNAS: <br>
  */
+@Entity
 @TrackingUserActivity
 public class AuthenticationMethod extends DomainEntity {
+    @ManyToOne ( optional = false )
+    @JoinColumn ( foreignKey = @ForeignKey ( name = "FK_AUTHENTICATIONMETHOD_TYPE" ) , name = "IDAUTHENTICATIONMETHOD" )
     private AuthenticationType type;
     private String authenticationId;
     private String authenticationKey;
