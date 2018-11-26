@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.lucasisrael.usercrud.domain.annotation.TrackingUserActivity;
 
 /**
@@ -22,6 +24,9 @@ import com.lucasisrael.usercrud.domain.annotation.TrackingUserActivity;
  * <br>
  * LISTA DE CLASSES INTERNAS: <br>
  */
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class, 
+        property = "id")
 @Entity
 @TrackingUserActivity
 public class Telephone extends DomainEntity {

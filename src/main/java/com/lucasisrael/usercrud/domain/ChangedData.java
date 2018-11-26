@@ -2,6 +2,8 @@
 package com.lucasisrael.usercrud.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * DOCUMENTAÇÃO DA CLASSE <br>
@@ -16,6 +18,8 @@ import javax.persistence.Entity;
  */
 @Entity
 public class ChangedData extends DomainEntity {
+    @ManyToOne ( optional = false )
+    @JoinColumn ( name = "IDUSERACTIVITY" )
     private UserActivity userActivity;
     private String oldValue;
     private String newValue;

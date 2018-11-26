@@ -28,6 +28,7 @@ public class UserChangesInterceptor extends EmptyInterceptor {
     @Autowired
     @Qualifier ( "userActivity" )
     private ThreadLocal < UserActivity > userActivity;
+    
 
     /**
      * @see org.hibernate.EmptyInterceptor#onFlushDirty(java.lang.Object,

@@ -24,8 +24,9 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class UserActivity extends DomainEntity {
-    @OneToMany ( cascade=CascadeType.ALL )
+    @OneToMany ( cascade=CascadeType.ALL, mappedBy="userActivity" )
     private List < ChangedData > changes;
+    private String operationDescription;
     private String originDetails;
     @ManyToOne ( optional = false )
     @JoinColumn ( foreignKey = @ForeignKey ( name = "FK_AUTHENTICATIONMETHOD_USER" ) , name = "IDUSER" )
@@ -130,5 +131,23 @@ public class UserActivity extends DomainEntity {
      */
     public void setUser ( final User user ) {
         this.user = user;
+    }
+
+    /**
+     * Método de recuperação do campo operationDescription
+     *
+     * @return valor do campo operationDescription
+     */
+    public String getOperationDescription () {
+        return operationDescription;
+    }
+
+    /**
+     * Valor de operationDescription atribuído a operationDescription
+     *
+     * @param operationDescription Atributo da Classe
+     */
+    public void setOperationDescription ( final String operationDescription ) {
+        this.operationDescription = operationDescription;
     }
 }

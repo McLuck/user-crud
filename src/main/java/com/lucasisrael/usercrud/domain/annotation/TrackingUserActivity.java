@@ -1,15 +1,5 @@
 package com.lucasisrael.usercrud.domain.annotation;
 
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.CLASS;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-@Documented
-@Retention ( CLASS )
-@Target ( TYPE )
 /**
  * DOCUMENTAÇÃO DA CLASSE <br>
  * ---------------------- <br>
@@ -22,6 +12,9 @@ import java.lang.annotation.Target;
  * <br>
  * LISTA DE CLASSES INTERNAS: <br>
  */
+@java.lang.annotation.Documented
+@java.lang.annotation.Target(value={java.lang.annotation.ElementType.TYPE})
+@java.lang.annotation.Retention(value=java.lang.annotation.RetentionPolicy.RUNTIME)
 public @interface TrackingUserActivity {
 
 }

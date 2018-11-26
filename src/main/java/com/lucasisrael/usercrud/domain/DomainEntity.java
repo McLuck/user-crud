@@ -11,6 +11,12 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  * DOCUMENTAÇÃO DA CLASSE <br>
  * ---------------------- <br>
@@ -23,11 +29,16 @@ import javax.validation.constraints.NotNull;
  * <br>
  * LISTA DE CLASSES INTERNAS: <br>
  */
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class, 
+        property = "id")
 @MappedSuperclass
 public abstract class DomainEntity extends DomainObject {
     @Id
     @GeneratedValue ( strategy = GenerationType.SEQUENCE )
     protected Long id;
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     @NotNull
     protected LocalDateTime insertionDate;
 
