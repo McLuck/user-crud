@@ -116,11 +116,14 @@
 				<md-table-cell md-label="Telefones" md-sort-by="gender">{{ sintrgifyTelephones(item.telephones) }}</md-table-cell>
 				<md-table-cell md-label="Criado em" md-sort-by="title">{{ item.insertionDate }}</md-table-cell>
 				<md-table-cell>
-						<md-button class="md-icon-button" @click="editRegister(item)">
+						<md-button class="md-icon-button" @click="editRegister(item)" alt="Editar" title="Editar">
 							<md-icon>edit</md-icon>
 						</md-button>
-						<md-button class="md-icon-button" @click="removeRegister(item)">
+						<md-button class="md-icon-button" @click="removeRegister(item)"  alt="Apagar" title="Apagar">
 							<md-icon>remove</md-icon>
+						</md-button>
+						<md-button class="md-icon-button" @click="loadUserActivitys(item)" alt="Atividades do usuário" title="Atividades do usuário">
+							<md-icon>timeline</md-icon>
 						</md-button>
 				</md-table-cell>
 			</md-table-row>
@@ -235,6 +238,7 @@
 					telephones: [],
 					authentications: []
 				};
+				this.activitys = [];
 				this.showDialog = true;
 			},
 			searchOnTable () {
@@ -304,6 +308,13 @@
 			editRegister(user) {
 				this.selected = user;
 				this.showDialog = true;
+			},
+			loadUserActivitys(user){
+				this.selected = user;
+				userService.findAllActivitys(user)
+				.then( res=> {
+					this.activitys = res;
+				} , e=> console.log(e));
 			},
 			removeRegister(user) {
 				userService.remove(user).then( res => this.loadList(), e => console.log(e));
