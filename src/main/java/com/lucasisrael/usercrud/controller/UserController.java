@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lucasisrael.usercrud.domain.User;
+import com.lucasisrael.usercrud.domain.UserActivity;
 import com.lucasisrael.usercrud.service.UserService;
 
 /**
@@ -86,6 +87,16 @@ public class UserController extends AbstractUserActivityController {
         user = userService.save( user );
         createUserActivity( user , request ).setOperationDescription( "Alterou cadastro" );
         return new ResponseEntity <>( user , HttpStatus.OK );
+    }
+
+    @GetMapping ( "/user/{id}/activitys" )
+    public @ResponseBody ResponseEntity < List < UserActivity > > loadActivitys ( @RequestParam ( value = "id" , required = true ) final Long idUser , final HttpServletRequest request ) {
+        final Optional < User > loadedUser = userService.loadUserById( idUser );
+        if ( loadedUser.isPresent() ) {
+            createUserActivity( loadedUser.get() , request ).setOperationDescription( "Visualizou cadastro" );
+            return new ResponseEntity <>( userService.loadActivitys( loadedUser.get() ) , HttpStatus.OK );
+        }
+        return new ResponseEntity <>( HttpStatus.NO_CONTENT );
     }
 
 }

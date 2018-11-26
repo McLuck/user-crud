@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.lucasisrael.usercrud.domain.Email;
 import com.lucasisrael.usercrud.domain.Telephone;
 import com.lucasisrael.usercrud.domain.User;
+import com.lucasisrael.usercrud.domain.UserActivity;
 import com.lucasisrael.usercrud.repository.EmailRepository;
 import com.lucasisrael.usercrud.repository.TelephoneRepository;
 import com.lucasisrael.usercrud.repository.UserActivityRepository;
@@ -97,5 +98,12 @@ public class UserService extends LoggedUserService {
      */
     public Optional < Telephone > loadTelephone ( final Long idTelephone ) {
         return telephoneRepository.findById( idTelephone );
+    }
+
+    /** 
+     * @return
+     */
+    public List<UserActivity> loadActivitys ( final User user ) {
+        return userActivityRepository.findByUserOrderByInsertionDateDesc( user );
     }
 }

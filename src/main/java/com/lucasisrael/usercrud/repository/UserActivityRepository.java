@@ -1,12 +1,14 @@
 
 package com.lucasisrael.usercrud.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.lucasisrael.usercrud.domain.User;
 import com.lucasisrael.usercrud.domain.UserActivity;
 
-/** 
+/**
  * DOCUMENTAÇÃO DA CLASSE <br>
  * ---------------------- <br>
  * FINALIDADE: <br>
@@ -14,16 +16,20 @@ import com.lucasisrael.usercrud.domain.UserActivity;
  * <br>
  * HISTÓRICO DE DESENVOLVIMENTO: <br>
  * Nov 26, 2018 - @author Lucas Israel - Primeira versão da classe. <br>
- *<br>
- *<br>
+ * <br>
+ * <br>
  * LISTA DE CLASSES INTERNAS: <br>
  */
 
 public interface UserActivityRepository extends JpaRepository < UserActivity , Long > {
 
-    /** 
+    /**
      * @param user
      */
     void deleteByUser ( User user );
 
+    /**
+     * @param user
+     */
+    List < UserActivity > findByUserOrderByInsertionDateDesc ( User user );
 }
