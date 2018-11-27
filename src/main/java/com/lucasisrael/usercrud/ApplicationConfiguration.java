@@ -9,15 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -41,11 +39,10 @@ import com.lucasisrael.usercrud.filter.UserActivityHandlerInterceptor;
 @EnableJpaRepositories ( "com.lucasisrael.usercrud.repository" )
 @Configuration
 @EnableConfigurationProperties
-@EnableWebMvc
-@EnableWebSecurity
-public class ApplicationConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+@AutoConfigureWebMvc
+public class ApplicationConfiguration implements WebMvcConfigurer {
     Logger log = LoggerFactory.getLogger( getClass() );
-    
+
     @Autowired
     UserActivityHandlerInterceptor interceptor;
 
@@ -63,25 +60,20 @@ public class ApplicationConfiguration extends WebSecurityConfigurerAdapter imple
 
     @Override
     public void addCorsMappings ( final CorsRegistry registry ) {
-        registry.addMapping( "/**" )
-        .allowedOrigins( "http://localhost:9000" , "http://localhost:8081" , "http://localhost:8080" )
-        .allowedMethods( "GET" , "POST" , "PUT" , "DELETE" , "OPTIONS" )
-        .allowCredentials(false)
-        .maxAge(4800);
+        registry.addMapping( "/**" ).allowedOrigins( "http://localhost:9000" , "http://localhost:8081" , "http://localhost:8080" ).allowedMethods( "GET" , "POST" , "PUT" , "DELETE" , "OPTIONS" )
+                .allowCredentials( false ).maxAge( 4800 );
     }
-    
+
     @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-        http.cors();
-        http.csrf().disable();
+    public void configureDefaultServletHandling ( final DefaultServletHandlerConfigurer configurer ) {
+        configurer.enable();
     }
-    
-    /** 
-         * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry)
-         */
-        @Override
-        public void addInterceptors ( final InterceptorRegistry registry ) {
-            WebMvcConfigurer.super.addInterceptors( registry );
-            registry.addInterceptor( interceptor );
-        }
+
+    /**
+     * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry)
+     */
+    @Override
+    public void addInterceptors ( final InterceptorRegistry registry ) {
+        registry.addInterceptor( interceptor );
+    }
 }

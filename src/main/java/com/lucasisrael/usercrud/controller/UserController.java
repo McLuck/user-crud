@@ -43,6 +43,11 @@ import com.lucasisrael.usercrud.service.UserService;
 public class UserController extends AbstractUserActivityController {
     Logger logger = LoggerFactory.getLogger( getClass() );
 
+//    @RequestMapping("/")
+//    public String index() {
+//        return "index.html";
+//    }
+    
     @Autowired
     UserService userService;
 
@@ -90,7 +95,7 @@ public class UserController extends AbstractUserActivityController {
     }
 
     @GetMapping ( "/user/{id}/activitys" )
-    public @ResponseBody ResponseEntity < List < UserActivity > > loadActivitys ( @RequestParam ( value = "id" , required = true ) final Long idUser , final HttpServletRequest request ) {
+    public @ResponseBody ResponseEntity < List < UserActivity > > loadActivitys ( @PathVariable ( value = "id" , required = true ) final Long idUser , final HttpServletRequest request ) {
         final Optional < User > loadedUser = userService.loadUserById( idUser );
         if ( loadedUser.isPresent() ) {
             createUserActivity( loadedUser.get() , request ).setOperationDescription( "Visualizou cadastro" );

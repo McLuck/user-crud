@@ -2,7 +2,6 @@
 package com.lucasisrael.usercrud.service;
 
 import org.springframework.lang.Nullable;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.lucasisrael.usercrud.domain.User;
 
@@ -25,9 +24,6 @@ public class LoggedUserService {
      */
     @Nullable
     public User loggedUser () {
-        if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
-            return ( User ) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        }
         return null;
     }
 }

@@ -1,7 +1,6 @@
 package com.lucasisrael.usercrud.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.token.Sha512DigestUtils;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Strings;
@@ -62,9 +61,6 @@ public class EmailAndPasswordUserAuthenticator implements UserAuthenticator {
      */
     @Override
     public String encodeKey ( final String decodedKey ) {
-        if ( decodedKey == null ) {
-            return null;
-        }
-        return new String( Sha512DigestUtils.sha( decodedKey ) );
+        return decodedKey;
     }
 }

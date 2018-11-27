@@ -130,29 +130,21 @@
 		</md-table>
 	</div>
 	<div>
-    <md-list class="md-triple-line" v-if="activitys">
-    	<div>
-	      <md-list-item v-for="act in activitys">
-	        <div class="md-list-item-text">
-	        	<span>{{ act.insertionDate }}</span>
-	        	<p>{{ act.operationDescription }}</p>
-	        </div>
-
-	        <div class="md-list-item-text">
-	          <p>{{ act.originDetails }}</p>
-	        </div>
-	        <md-button class="md-icon-button md-list-action" v-if="act.changes">
-	          <md-list v-for="change in act.changes">
-				      <md-list-item>
-				      	<span>{{ change.attribute }}</span>
-				      	<p>{{ change.oldValue }} => {{ change.newValue }}</p>
-				    </md-list-item>
-				    </md-list>
-	        </md-button>
-	      </md-list-item>
-	      <md-divider class="md-inset"></md-divider>    		
-    	</div>
-    </md-list>
+		<md-table v-model="activitys" md-sort="insertionDate" md-sort-order="desc" md-card md-fixed-header>
+			<md-table-toolbar>
+        <h1 class="md-title">Atividades do usuário</h1>
+      </md-table-toolbar>
+      <md-table-row slot="md-table-row" slot-scope="{ item }">
+        <md-table-cell md-label="Data" md-sort-by="insertionDate">{{ item.insertionDate }}</md-table-cell>
+        <md-table-cell md-label="Evento" md-sort-by="operationDescription">{{ item.operationDescription }}</md-table-cell>
+        <md-table-cell md-label="Detalhes da requisição" md-sort-by="originDetails">{{ item.originDetails }}</md-table-cell>
+        <md-table-cell md-label="Alteração">
+        	<ul>
+        		<li v-for="change in item.changes">{{ change.attribute }}: {{ change.oldValue }} => {{ change.newValue }}</li>
+        	</ul>
+        </md-table-cell>
+      </md-table-row>
+		</md-table>
   </div>
 </div>
 </template>

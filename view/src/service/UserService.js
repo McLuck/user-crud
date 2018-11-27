@@ -6,11 +6,18 @@ export default class UserService {
    */
   constructor (resource) {
     this._resource = resource('user{/id}')
+    this._userActivityResource = resource('user{/id}/activitys')
   }
 
   findAll () {
     return this._resource
       .query()
+      .then(res => res.json())
+  }
+
+  findAllActivitys (user) {
+    return this._userActivityResource
+      .query( { id:user.id } )
       .then(res => res.json())
   }
 
