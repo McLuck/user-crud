@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +38,6 @@ import com.lucasisrael.usercrud.filter.UserActivityHandlerInterceptor;
 @EnableJpaRepositories ( "com.lucasisrael.usercrud.repository" )
 @Configuration
 @EnableConfigurationProperties
-@AutoConfigureWebMvc
 public class ApplicationConfiguration implements WebMvcConfigurer {
     Logger log = LoggerFactory.getLogger( getClass() );
 

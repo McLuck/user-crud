@@ -17,3 +17,10 @@ services:
     restart: always
     ports:
       - 8080:8080
+
+  usercrud:
+    image: lucasisrael/user-crud
+    ports:
+      - 9000:9000
+    volumes:
+      - ~/projects/crudusuario/application.properties:/opt/user-crud/application.properties
